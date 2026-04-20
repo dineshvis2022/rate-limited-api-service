@@ -1,18 +1,22 @@
 package routes
 
-import "github.com/gin-gonic/gin"
+import (
+	"api-service/controllers"
 
-func SetupRouter() *gin.Engine {
+	"github.com/gin-gonic/gin"
+)
+
+func SetupRouter(h *controllers.Handler) *gin.Engine {
 	router := gin.Default()
 
-	addRoutes(&router.RouterGroup)
+	addRoutes(&router.RouterGroup, h)
 	return router
 }
 
-func addRoutes(router *gin.RouterGroup) {
+func addRoutes(router *gin.RouterGroup, h *controllers.Handler) {
 	api := router.Group("/v1")
 	{
-		api.POST("/request")
-		api.GET("/stats")
+		api.POST("/request", h.PostRequest)
+		api.GET("/stats", h.GetStats)
 	}
 }
