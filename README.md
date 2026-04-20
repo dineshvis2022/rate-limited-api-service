@@ -41,13 +41,18 @@ The system is designed with **clean architecture**, **concurrency safety**, and 
 
 ```
 .
-├── cmd/main.go
+├── main.go
+├── config/
 ├── controllers/
 ├── routes/
 ├── services/
 ├── stores/
 ├── ratelimiter/
 ├── models/
+├── README.md
+├── .env.sample
+├── go.mod
+├── go.sum
 ```
 
 ---
@@ -233,7 +238,7 @@ seq 1 10 | xargs -n1 -P10 curl -X POST http://localhost:8080/v1/request \
 
 ## 📬 Submission
 
-* GitHub Repo: `https://github.com/dineshvis2022/rate-limited-api-service.git`
+* GitHub Repo: `https://github.com/dineshvis2022/rate-limited-api-service`
 * Completed within 24 hours as per assignment requirements
 
 ---
