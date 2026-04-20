@@ -1,6 +1,7 @@
 package main
 
 import (
+	"api-service/config"
 	"api-service/controllers"
 	"api-service/ratelimiter"
 	"api-service/routes"
@@ -13,7 +14,6 @@ import (
 	"time"
 
 	"github.com/joho/godotenv"
-	"github.com/redis/go-redis/v9"
 )
 
 func main() {
@@ -51,16 +51,8 @@ func setupApp(useRedis bool) *controllers.Handler {
 	var rl ratelimiter.RateLimiter
 
 	if useRedis {
-		// Redis config (fallback to default if not provided)
-		addr := os.Getenv("REDIS_ADDR")
-		if addr == "" {
-			addr = "localhost:6379"
-		}
-
-		// Create Redis client
-		rdb := redis.NewClient(&redis.Options{
-			Addr: addr,
-		})
+		// Get redis db Connection
+		rdb := config.GetRedisDB()
 
 		// Verify connection
 		if _, err := rdb.Ping(context.Background()).Result(); err != nil {
